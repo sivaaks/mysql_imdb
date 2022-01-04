@@ -1,0 +1,39 @@
+CREATE DATABASE imdb;
+
+CREATE TABLE movies (id int(10) PRIMARY KEY AUTO_INCREMENT,name varchar(100), type varchar(10),source_url varchar(200),genre varchar(20));
+
+CREATE TABLE users (id int(10) PRIMARY KEY AUTO_INCREMENT,verified boolean,email varchar(100));
+
+CREATE TABLE review (id int(10) PRIMARY KEY AUTO_INCREMENT,rating int(1),review_text varchar(200), movie_id int(10),user_id int(10), 
+CONSTRAINT movie_id FOREIGN KEY(movie_id) REFERENCES movies(id), CONSTRAINT user_id FOREIGN KEY(user_id) REFERENCES users(id));
+
+CREATE TABLE artists (id int(10) PRIMARY KEY AUTO_INCREMENT,name varchar(50),role varchar(20), movie_id int(10),skill varchar(100), 
+CONSTRAINT moviea_id FOREIGN KEY(movie_id) REFERENCES movies(id));
+
+INSERT INTO movies (name,type,source_url,genre) VALUES ('Filmy action','Video','https:example.com/vbdydfdj','Action'),
+('Filmy action','Image','https:example.com/bdy5656fdj','Action'),('Romantic code','Video','https:example.com/ldfdif65j','Romance'),
+('Romantic code','Image','https:example.com/vbdydfdj','Romance'),('1234','Video','https:example.com/vbdydfdj','Thriller');
+
+INSERT INTO users (email,verified) VALUES ('us1@example.com',true),('us2@example.com',false),('u3@example.com',true),('u4@example.com',true),('u5@example.com',true);
+
+INSERT INTO review (rating,review_text,movie_id,user_id) VALUES (5,'Good',2,1),(3,'Average',1,2),(4,'Good',2,1),(4,'Good',1,2),(4,'Worth watching',3,3);
+
+INSERT INTO artists (name,skill,movie_id,role) VALUES ('Ar1','acting',1,'Lead'),('Ar2','acting',2,'Lead'),('Ar3','dance',2,'Dancer'),('Ar4','music',1,'composer'),
+('Ar5','camera',2,'Cinematorgraphy');
+
+SELECT name,type FROM `movies` where name='Romantic code';
+
+SELECT review.rating,review.review_text,movies.type FROM review,movies WHERE movies.id=2 and review.movie_id=2;
+
+SELECT * FROM artists WHERE movie_id=2;
+
+SELECT * FROM review WHERE user_id=1;
+
+SELECT skill FROM artists WHERE id=1;
+
+SELECT role FROM `artists` where id=2;
+
+
+
+
+
